@@ -11,29 +11,29 @@
                             <router-link :to="{name: 'sliders'}" class="btn btn-primary btn-sm text-light" style="float:right">Back</router-link>
 
                         </div>
-                        <form id="memberForm" @submit.prevent="addSlider()" enctype="multipart/form-data">
+                        <form @submit.prevent="addSlider()" enctype="multipart/form-data">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="title">Title</label>
-                                            <input type="text" v-model="form.title" class="form-control" id="title" placeholder="Enter Title" name="title">
+                                            <input type="text" v-model="form.title" class="form-control" placeholder="Enter Title">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                          <div class="form-group">
                                             <label for="sub_title">Sub Title</label>
-                                            <input type="text" v-model="form.sub_title" class="form-control" id="sub_title" placeholder="Enter Sub Title" name="sub_title">
+                                            <input type="text" v-model="form.sub_title" class="form-control" placeholder="Enter Sub Title">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Short Description</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..." v-model="form.short_description"></textarea>
+                                            <textarea class="form-control" rows="3" placeholder="Enter Here..." v-model="form.short_description"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="image-input" :style="{ 'background-image': `url(${thumbnail})` }" @click="chooseImage">
+                                    <div class="col-sm-12">
+                                        <div class="image-input" :style="{ backgroundImage: `url(${thumbnail})` }" @click="chooseImage">
                                             <span v-if="!form.image" class="placeholder">Choose an Image</span>
                                             <input class="file-input" ref="fileInput" type="file" @input="onSelectFile">
                                         </div>
@@ -78,24 +78,24 @@ export default {
     methods: {
 
         addSlider() {
-            // axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
-            // var formData = new FormData();
-            // formData.append('title',this.form.title);
-            // formData.append('sub_title',this.form.sub_title);
-            // formData.append('short_description',this.form.short_description);
-            // formData.append('image',this.form.image);
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
+            var formData = new FormData();
+            formData.append('title',this.form.title);
+            formData.append('sub_title',this.form.sub_title);
+            formData.append('short_description',this.form.short_description);
+            formData.append('image',this.form.image);
 
-            // let instance = this;
-            // axios.post('http://127.0.0.1:8000/api/members', formData).then(function (response) {
-            //     console.log(response);
-            //     Swal.fire({
-            //         icon: "success",
-            //         title: "Member Created Successfully",
-            //     });
-            //     instance.$router.push("/admin/members");
-            // }).catch(function (error) {
-            //     console.log(error);
-            // });
+            let instance = this;
+            axios.post('http://127.0.0.1:8000/api/slider/create', formData).then(function (response) {
+                console.log(response);
+                Swal.fire({
+                    icon: "success",
+                    title: "Slider Created Successfully",
+                });
+                instance.$router.push("/admin/sliders");
+            }).catch(function (error) {
+                console.log(error);
+            });
         },
 
         chooseImage () {
@@ -124,8 +124,8 @@ export default {
 <style scoped>
 .image-input{
     display: block;
-    width: 200px;
-    height: 200px;
+    width: 600px;
+    height: 300px;
     background-size: cover;
     background-position: center center;
 }

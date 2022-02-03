@@ -14,8 +14,8 @@ const store = new Vuex.Store({
     loggedIn(state){
       return state.token !== null
     },
-    members: (state) => {
-      return state.members;
+    sliders: (state) => {
+      return state.sliders;
     },
   },
 
@@ -26,8 +26,8 @@ const store = new Vuex.Store({
     removeToken(state){
       state.token = null
     },
-    members(state, members){
-      state.members = members;
+    sliders(state, sliders){
+      state.sliders = sliders;
     },
   },
   
@@ -36,11 +36,11 @@ const store = new Vuex.Store({
       context.commit('removeToken')
     },
 
-    getMembers: async (context)=>{
+    getSliders: async (context)=>{
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('accessToken')
-      await axios.get('http://127.0.0.1:8000/api/members').then( response =>{
+      await axios.get('http://127.0.0.1:8000/api/sliders').then( response =>{
         console.log(response.data)
-        context.commit("members", response.data.data);
+        context.commit("sliders", response.data.data);
       }).catch((error) => {
         console.log(error)
       });
