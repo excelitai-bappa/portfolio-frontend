@@ -1,13 +1,19 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+// @import "~@fortawesome/fontawesome-free/css/all.min.css";
+// @import "~bootstrap";
+// @import "~admin-lte";
 
-import 'bootstrap'
-import 'admin-lte'
-import 'axios'
-import 'core-js'
-import './assets/scss/app.scss'
+// @import '~bootstrap';
+// @import '~core-js';
+// @import '~easing';
+// @import '~jquery';
+// @import '~jquery-fancybox';
+// @import '~magnific-popup';
+// @import '~metadata';
+// @import '~modernizr';
+// @import '~owl.carousel';
+// @import '~popper.js';
+// @import '~scrollup';
+// @import '~slicknav';
 
 // window.jQuery = require('../node_modules/jquery/dist/jquery.js')
 // window.$ = require('../node_modules/jquery/dist/jquery.js')
@@ -30,11 +36,3 @@ import './assets/scss/app.scss'
 // require('../node_modules/magnific-popup/dist/jquery.magnific-popup.js')
 // // require('./frontend_assets/js/magnific-popup.min.js')
 // require('./frontend_assets/js/active.js')
-
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount('#app')

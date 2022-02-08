@@ -7,77 +7,83 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('accessToken') || null,
-    members: [],
+    sliders: [],
   },
 
   getters: {
-    loggedIn(state){
+    loggedIn(state) {
       return state.token !== null
     },
-    sliders: (state) => {
-      return state.sliders;
+    SLIDERS: (state) => {
+      return state.sliders
     },
   },
 
   mutations: {
-    setToken(state, token){
+    setToken(state, token) {
       state.token = token
     },
-    removeToken(state){
+    removeToken(state) {
       state.token = null
     },
-    sliders(state, sliders){
-      state.sliders = sliders;
+    sliders(state, sliders) {
+      state.sliders = sliders
     },
   },
-  
+
   actions: {
     removeToken(context) {
       context.commit('removeToken')
     },
 
-    getSliders: async (context)=>{
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('accessToken')
-      await axios.get('http://127.0.0.1:8000/api/sliders').then( response =>{
-        console.log(response.data)
-        context.commit("sliders", response.data.data);
-      }).catch((error) => {
-        console.log(error)
-      });
+    getSliders: async (context) => {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('accessToken')
+      await axios
+        .get('http://127.0.0.1:8000/api/sliders')
+        .then((response) => {
+          context.commit('sliders', response.data.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
 
-    
-    
-    login(context, form){
-      return new Promise((resolve, reject)=>{
-        axios.post('http://127.0.0.1:8000/api/user/login', {
-        email: form.email,
-        password: form.password,
-          }).then(response=>{
+    login(context, form) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post('http://127.0.0.1:8000/api/user/login', {
+            email: form.email,
+            password: form.password,
+          })
+          .then((response) => {
             localStorage.setItem('accessToken', response.data.token)
             context.commit('setToken', response.data.token)
             resolve(response)
-          }).catch(error =>{
+          })
+          .catch((error) => {
             reject(error)
           })
       })
     },
-    
-    logout(context){
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
-   
+
+    logout(context) {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + context.state.token
+
       return new Promise((resolve, reject) => {
-          axios.post('http://127.0.0.1:8000/api/user/logout').then( response =>{
+        axios
+          .post('http://127.0.0.1:8000/api/user/logout')
+          .then((response) => {
             localStorage.removeItem('accessToken')
             context.commit('removeToken')
             resolve(response)
-          }).catch(error =>{
+          })
+          .catch((error) => {
             reject(error)
           })
-        })
-      },
-    
-    
-  }
+      })
+    },
+  },
 })
 export default store
