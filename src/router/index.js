@@ -60,6 +60,32 @@ const routes = [
           requiresAuth: true,
         },
       },
+      {
+        path: '/admin/services',
+        name: 'services',
+        component: () => import('../views/admin/services/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/service/create',
+        name: 'service-create',
+        component: () => import('../views/admin/services/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/service-edit/:id',
+        name: 'service-edit',
+        component: () => import('../views/admin/services/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
     ],
   },
   {

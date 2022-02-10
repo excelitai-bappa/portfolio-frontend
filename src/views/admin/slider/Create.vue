@@ -11,7 +11,7 @@
                             <router-link :to="{name: 'sliders'}" class="btn btn-primary btn-sm text-light" style="float:right">Back</router-link>
 
                         </div>
-                        <form @submit.prevent="addSlider()" enctype="multipart/form-data">
+                    <form @submit.prevent="addSlider()">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-6">

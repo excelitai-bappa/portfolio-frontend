@@ -39,7 +39,7 @@
             class="brand-image img-circle elevation-3"
             style="opacity: 0.8"
           />
-          <span class="brand-text font-weight-light">GYM SYSTEM</span>
+          <span class="brand-text font-weight-light">Portfolio</span>
         </router-link>
 
         <!-- Sidebar -->
@@ -100,6 +100,15 @@
                   <i class="nav-icon fas fa-home"></i>
                   <p>
                     Sliders
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'services' }" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    Services
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </router-link>

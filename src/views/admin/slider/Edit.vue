@@ -57,15 +57,13 @@
                         ></textarea>
                       </div>
                     </div>
-                    <!-- <div class="col-sm-12">
+                    <div class="col-sm-12">
                       <div
+                        v-if="thumbnail"
                         class="image-input"
-                        :style="{ backgroundImage: `url(${thumbnail})` }"
+                        :style="`background-image: url(${thumbnail})`"
                         @click="chooseImage"
                       >
-                        <span v-if="!form.image" class="placeholder"
-                          >Choose an Image</span
-                        >
                         <input
                           class="file-input"
                           ref="fileInput"
@@ -73,20 +71,21 @@
                           @input="onSelectFile"
                         />
                       </div>
-                    </div> -->
-
-                    <div class="col-sm-12">
-                        <div v-if="thumbnail" class="image-input" :style="`background-image: url(${thumbnail})`" @click="chooseImage">
-                            <input class="file-input" ref="fileInput" type="file" @input="onSelectFile">
-                        </div>
-                        <div v-else class="image-input" :style="`background-image: url(${form.image})`" @click="chooseImage">
-                            <span v-if="!!form.image" class="placeholder">Choose an Image</span>
-                            <input class="file-input" ref="fileInput" type="file" @input="onSelectFile">
-                        </div>
+                      <div
+                        v-else
+                        class="image-input"
+                        :style="`background-image: url(${form.image})`"
+                        @click="chooseImage"
+                      >
+                        <!-- <span v-if="!!form.image" class="placeholder">Choose an Image</span> -->
+                        <input
+                          class="file-input"
+                          ref="fileInput"
+                          type="file"
+                          @input="onSelectFile"
+                        />
+                      </div>
                     </div>
-
-
-
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -120,12 +119,12 @@ export default {
       thumbnail: null,
     };
   },
-//   computed: {
-//     hasFile: function () {
-//       console.log(this.form?.image, "rom has file");
-//       return !!this.thumbnail;
-//     },
-//   },
+  //   computed: {
+  //     hasFile: function () {
+  //       console.log(this.form?.image, "rom has file");
+  //       return !!this.thumbnail;
+  //     },
+  //   },
 
   mounted() {
     this.getSlider();
@@ -139,7 +138,6 @@ export default {
       await axios
         .get(`http://127.0.0.1:8000/api/slider/show/${this.id}`)
         .then((response) => {
-          console.log(response.data.data);
           this.form = response.data.data;
         })
         .catch(function (error) {
@@ -147,28 +145,27 @@ export default {
         });
     },
 
-    updateMember() {
+    updateSlider() {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + this.$store.state.token;
       var formData = new FormData();
-      formData.append("name", this.form.name);
-      formData.append("gender", this.form.gender);
-      formData.append("mobile", this.form.mobile);
-      formData.append("blood_group", this.form.blood_group);
-      formData.append("address", this.form.address);
-      formData.append("profile_picture", this.form.profile_picture);
-      formData.append("card_no", this.form.card_no);
+      formData.append("id", this.form.id);
+      formData.append("title", this.form.title);
+      formData.append("sub_title", this.form.sub_title);
+      formData.append("short_description", this.form.short_description);
+      formData.append("image", this.form.image);
 
       let instance = this;
       axios
-        .post(`http://127.0.0.1:8000/api/members/${this.id}/update`, formData)
-        .then(function (response) {
-          console.log(response);
+        .post(`http://127.0.0.1:8000/api/slider/update/${this.id}`, formData, {
+          headers: { "content-type": "multipart/form-data" },
+        })
+        .then(function () {
           Swal.fire({
             icon: "success",
-            title: "Member Updated Successfully",
+            title: "Slider Updated Successfully",
           });
-          instance.$router.push("/admin/members");
+          instance.$router.push("/admin/sliders");
         })
         .catch(function (error) {
           console.log(error);
@@ -181,13 +178,12 @@ export default {
 
     onSelectFile(event) {
       const input = event.target;
-      console.log(event);
       const files = input.files;
-      this.form.profile_picture = files[0];
+      this.form.image = files[0];
       if (files && files[0]) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.thumnail = e.target.result;
+          this.thumbnail = e.target.result;
         };
         reader.readAsDataURL(files[0]);
         this.$emit("input", files[0]);

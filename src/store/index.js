@@ -8,6 +8,7 @@ const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('accessToken') || null,
     sliders: [],
+    services: [],
   },
 
   getters: {
@@ -16,6 +17,9 @@ const store = new Vuex.Store({
     },
     SLIDERS: (state) => {
       return state.sliders
+    },
+    SERVICES: (state) => {
+      return state.services
     },
   },
 
@@ -28,6 +32,9 @@ const store = new Vuex.Store({
     },
     sliders(state, sliders) {
       state.sliders = sliders
+    },
+    services(state, service) {
+      state.services = service
     },
   },
 
@@ -43,6 +50,18 @@ const store = new Vuex.Store({
         .get('http://127.0.0.1:8000/api/sliders')
         .then((response) => {
           context.commit('sliders', response.data.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getServices: async (context) => {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('accessToken')
+      await axios
+        .get('http://127.0.0.1:8000/api/services')
+        .then((response) => {
+          context.commit('services', response.data.data)
         })
         .catch((error) => {
           console.log(error)
