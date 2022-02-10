@@ -63,8 +63,14 @@
                             >Edit</router-link
                           >
                         </li>
-                        <li><a class="dropdown-item" type="button" @click="changeStatus(info.id, 1)">Active</a></li>
-                        <li><a class="dropdown-item" href="#">Deactive</a></li>
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            type="button"
+                            @click="changeStatus(info.id)"
+                            >Status Change</a
+                          >
+                        </li>
                         <div class="dropdown-divider"></div>
                         <li>
                           <a
@@ -119,7 +125,7 @@ export default {
     statusColor(status) {
       return this.color[status];
     },
-    removeService(id) {
+    changeStatus(id) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -131,13 +137,13 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("http://127.0.0.1:8000/api/service/delete/" + id)
+            .post("http://127.0.0.1:8000/api/service/status-change/" + id)
             .then(() => {
               // Toast.fire({
               //   icon: "success",
               //   title: "Category Deleted Successfully",
               // });
-              Swal.fire("Deleted!", "Service Deleted Successfully", "success");
+              Swal.fire("Updated!", "Status Update Successfully", "success");
               this.$store.dispatch("getServices");
             })
             .catch((error) => {

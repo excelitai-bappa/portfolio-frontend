@@ -113,6 +113,15 @@
                   </p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'services' }" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    About Us
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
 
               <li class="nav-item">
                 <a @click="logout" class="nav-link" style="cursor: pointer">
