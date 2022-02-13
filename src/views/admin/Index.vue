@@ -114,10 +114,28 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link :to="{ name: 'services' }" class="nav-link">
+                <router-link :to="{ name: 'about-us' }" class="nav-link">
                   <i class="nav-icon fas fa-home"></i>
                   <p>
                     About Us
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'skills' }" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    Skills
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'faqs' }" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    FAQS
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </router-link>

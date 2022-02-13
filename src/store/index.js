@@ -9,6 +9,8 @@ const store = new Vuex.Store({
     token: localStorage.getItem('accessToken') || null,
     sliders: [],
     services: [],
+    skills: [],
+    faqs: [],
   },
 
   getters: {
@@ -20,6 +22,12 @@ const store = new Vuex.Store({
     },
     SERVICES: (state) => {
       return state.services
+    },
+    SKILLS: (state) => {
+      return state.skills
+    },
+    FAQS: (state) => {
+      return state.faqs
     },
   },
 
@@ -35,6 +43,12 @@ const store = new Vuex.Store({
     },
     services(state, service) {
       state.services = service
+    },
+    skills(state, skills) {
+      state.skills = skills
+    },
+    faqs(state, faqs) {
+      state.faqs = faqs
     },
   },
 
@@ -62,6 +76,30 @@ const store = new Vuex.Store({
         .get('http://127.0.0.1:8000/api/services')
         .then((response) => {
           context.commit('services', response.data.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getSkills: async (context) => {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('accessToken')
+      await axios
+        .get('http://127.0.0.1:8000/api/skills')
+        .then((response) => {
+          context.commit('skills', response.data.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getFaqs: async (context) => {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('accessToken')
+      await axios
+        .get('http://127.0.0.1:8000/api/faqs')
+        .then((response) => {
+          context.commit('faqs', response.data.data)
         })
         .catch((error) => {
           console.log(error)

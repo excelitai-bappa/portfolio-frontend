@@ -86,6 +86,66 @@ const routes = [
           requiresAuth: true,
         },
       },
+      {
+        path: '/admin/about-us',
+        name: 'about-us',
+        component: () => import('../views/admin/about-us/Edit'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/skills',
+        name: 'skills',
+        component: () => import('../views/admin/skills/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/skill/create',
+        name: 'skill-create',
+        component: () => import('../views/admin/skills/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/skill-edit/:id',
+        name: 'skill-edit',
+        component: () => import('../views/admin/skills/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/faqs',
+        name: 'faqs',
+        component: () => import('../views/admin/faqs/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/faq/create',
+        name: 'faq-create',
+        component: () => import('../views/admin/faqs/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/faq-edit/:id',
+        name: 'faq-edit',
+        component: () => import('../views/admin/faqs/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
     ],
   },
   {
