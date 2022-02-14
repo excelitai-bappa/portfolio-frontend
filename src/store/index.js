@@ -11,6 +11,10 @@ const store = new Vuex.Store({
     services: [],
     skills: [],
     faqs: [],
+    teams: [],
+    categories: [],
+    testimonials: [],
+    blog_categories: [],
   },
 
   getters: {
@@ -28,6 +32,18 @@ const store = new Vuex.Store({
     },
     FAQS: (state) => {
       return state.faqs
+    },
+    TEAMS: (state) => {
+      return state.teams
+    },
+    CATEGORIES: (state) => {
+      return state.categories
+    },
+    TESTIMONIALS: (state) => {
+      return state.testimonials
+    },
+    BLOGCATEGORIES: (state) => {
+      return state.blog_categories
     },
   },
 
@@ -49,6 +65,18 @@ const store = new Vuex.Store({
     },
     faqs(state, faqs) {
       state.faqs = faqs
+    },
+    teams(state, teams) {
+      state.teams = teams
+    },
+    categories(state, categories) {
+      state.categories = categories
+    },
+    testimonials(state, testimonials) {
+      state.testimonials = testimonials
+    },
+    blog_categories(state, blog_categories) {
+      state.blog_categories = blog_categories
     },
   },
 
@@ -100,6 +128,55 @@ const store = new Vuex.Store({
         .get('http://127.0.0.1:8000/api/faqs')
         .then((response) => {
           context.commit('faqs', response.data.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getTeams: async (context) => {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('accessToken')
+      await axios
+        .get('http://127.0.0.1:8000/api/teams')
+        .then((response) => {
+          context.commit('teams', response.data.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getCategories: async (context) => {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('accessToken')
+      await axios
+        .get('http://127.0.0.1:8000/api/categories')
+        .then((response) => {
+          context.commit('categories', response.data.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getTestimonials: async (context) => {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('accessToken')
+      await axios
+        .get('http://127.0.0.1:8000/api/testimonials')
+        .then((response) => {
+          console.log(response.data.data)
+          context.commit('testimonials', response.data.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getBlogCategories: async (context) => {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('accessToken')
+      await axios
+        .get('http://127.0.0.1:8000/api/blog-categories')
+        .then((response) => {
+          context.commit('blog_categories', response.data.data)
         })
         .catch((error) => {
           console.log(error)

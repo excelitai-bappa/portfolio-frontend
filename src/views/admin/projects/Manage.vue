@@ -1,16 +1,16 @@
 <template>
   <div>
-    <breadcrumb title="Skills" />
+    <breadcrumb title="Team Members" />
     <section class="content">
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">All FAQS</h3>
+            <h3 class="card-title">All Team Members</h3>
             <router-link
-              :to="{ name: 'faq-create' }"
+              :to="{ name: 'team-create' }"
               class="btn btn-primary btn-sm"
               style="float: right"
-              >Create FAQ</router-link
+              >Create Team Member</router-link
             >
           </div>
           <div class="card-body">
@@ -18,17 +18,36 @@
               <thead>
                 <tr>
                   <th>SL</th>
-                  <th>Question</th>
-                  <th>Answer</th>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Designation</th>
+                  <th>Facebook URL</th>
+                  <th>Twitter URL</th>
+                  <th>Linkedin URL</th>
+                  <th>Instagram URL</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(info, key) in getFaqs" :key="key">
+                <tr v-for="(info, key) in getTeams" :key="key">
                   <td style="vertical-align: middle">{{ ++key }}</td>
-                  <td style="vertical-align: middle">{{ info.question }}</td>
-                  <td style="vertical-align: middle">{{ info.answer }}</td>
+                  <td style="vertical-align: middle">
+                    <img
+                      :src="info.image"
+                      alt=""
+                      style="height: 60px; width: 60px"
+                    />
+                  </td>
+
+                  <td style="vertical-align: middle">{{ info.name }}</td>
+                  <td style="vertical-align: middle">{{ info.designation }}</td>
+                  <td style="vertical-align: middle">{{ info.fb_url }}</td>
+                  <td style="vertical-align: middle">{{ info.twitter_url }}</td>
+                  <td style="vertical-align: middle">
+                    {{ info.linkedin_url }}
+                  </td>
+                  <td style="vertical-align: middle">{{ info.insta_url }}</td>
                   <td style="vertical-align: middle">
                     <span class="badge" :class="statusColor(info.status)">{{
                       info.status
@@ -56,7 +75,7 @@
                         <li>
                           <router-link
                             :to="{
-                              name: 'faq-edit',
+                              name: 'team-edit',
                               params: { id: info.id },
                             }"
                             class="dropdown-item"
@@ -76,7 +95,7 @@
                           <a
                             class="dropdown-item bg-danger"
                             style="cursor: pointer"
-                            @click="removeFaq(info.id)"
+                            @click="removeMember(info.id)"
                             >Delete</a
                           >
                         </li>
@@ -107,16 +126,17 @@ export default {
         Inactive: "bg-danger",
         Active: "bg-success",
       },
+      members: [],
     };
   },
 
-  mounted() {
-    this.$store.dispatch("getFaqs");
+  created() {
+    this.$store.dispatch("getTeams");
   },
 
   computed: {
-    getFaqs() {
-      return this.$store.getters.FAQS;
+    getTeams() {
+      return this.$store.getters.TEAMS;
     },
   },
 
@@ -136,14 +156,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("http://127.0.0.1:8000/api/faq/status-change/" + id)
+            .post("http://127.0.0.1:8000/api/team/status-change/" + id)
             .then(() => {
               // Toast.fire({
               //   icon: "success",
               //   title: "Category Deleted Successfully",
               // });
               Swal.fire("Updated!", "Status Update Successfully", "success");
-              this.$store.dispatch("getFaqs");
+              this.$store.dispatch("getTeams");
             })
             .catch((error) => {
               console.log(error);
@@ -151,7 +171,8 @@ export default {
         }
       });
     },
-    removeFaq(id) {
+
+    removeMember(id) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -163,14 +184,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("http://127.0.0.1:8000/api/faq/delete/" + id)
+            .post("http://127.0.0.1:8000/api/team/delete/" + id)
             .then(() => {
               // Toast.fire({
               //   icon: "success",
               //   title: "Category Deleted Successfully",
               // });
-              Swal.fire("Deleted!", "Faq Deleted Successfully", "success");
-              this.$store.dispatch("getFaqs");
+              Swal.fire("Deleted!", "Member Deleted Successfully", "success");
+              this.$store.dispatch("getTeams");
             })
             .catch((error) => {
               console.log(error);

@@ -146,6 +146,110 @@ const routes = [
           requiresAuth: true,
         },
       },
+      {
+        path: '/admin/teams',
+        name: 'teams',
+        component: () => import('../views/admin/teams/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/team/create',
+        name: 'team-create',
+        component: () => import('../views/admin/teams/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/team-edit/:id',
+        name: 'team-edit',
+        component: () => import('../views/admin/teams/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/project_categories',
+        name: 'project_categories',
+        component: () => import('../views/admin/project_category/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/project_category/create',
+        name: 'project-category-create',
+        component: () => import('../views/admin/project_category/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/project-category-edit/:id',
+        name: 'project-category-edit',
+        component: () => import('../views/admin/project_category/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/testimonials',
+        name: 'testimonials',
+        component: () => import('../views/admin/testimonials/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/testimonial/create',
+        name: 'testimonial-create',
+        component: () => import('../views/admin/testimonials/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/testimonial-edit/:id',
+        name: 'testimonial-edit',
+        component: () => import('../views/admin/testimonials/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/blog-categories',
+        name: 'blog-categories',
+        component: () => import('../views/admin/blog_categories/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/blog-category/create',
+        name: 'blog-category-create',
+        component: () => import('../views/admin/blog_categories/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/blog-category-edit/:id',
+        name: 'blog-category-edit',
+        component: () => import('../views/admin/blog_categories/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
     ],
   },
   {

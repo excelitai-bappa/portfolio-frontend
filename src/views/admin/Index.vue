@@ -140,6 +140,54 @@
                   </p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'teams' }" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    Teams
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link
+                  :to="{ name: 'project_categories' }"
+                  class="nav-link"
+                >
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    Project Category
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <!-- <li class="nav-item">
+                <router-link :to="{ name: 'porjects' }" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    Projects
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li> -->
+              <li class="nav-item">
+                <router-link :to="{ name: 'testimonials' }" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    Testimonials
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'blog-categories' }" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>
+                    Blog Categories
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
 
               <li class="nav-item">
                 <a @click="logout" class="nav-link" style="cursor: pointer">

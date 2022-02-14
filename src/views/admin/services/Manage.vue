@@ -26,15 +26,15 @@
               </thead>
               <tbody>
                 <tr v-for="(info, key) in getServices" :key="key">
-                  <td></td>
-                  <td>{{ info.name }}</td>
-                  <td><i :class="[info.icon_url]"></i></td>
-                  <td>
+                  <td style="vertical-align: middle">{{ ++key }}</td>
+                  <td style="vertical-align: middle">{{ info.name }}</td>
+                  <td style="vertical-align: middle"><i :class="[info.icon_url]"></i></td>
+                  <td style="vertical-align: middle">
                     <span class="badge" :class="statusColor(info.status)">{{
                       info.status
                     }}</span>
                   </td>
-                  <td>
+                  <td style="vertical-align: middle">
                     <div class="dropdown">
                       <a
                         class="btn dropdown-toggle"

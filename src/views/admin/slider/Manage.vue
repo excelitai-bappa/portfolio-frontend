@@ -28,8 +28,8 @@
               </thead>
               <tbody>
                 <tr v-for="(info, key) in getSliders" :key="key">
-                  <td></td>
-                  <td>
+                  <td style="vertical-align: middle">{{ ++key }}</td>
+                  <td style="vertical-align: middle">
                     <img
                       :src="info.image"
                       alt=""
@@ -37,9 +37,9 @@
                     />
                   </td>
 
-                  <td>{{ info.title }}</td>
-                  <td>{{ info.sub_title }}</td>
-                  <td>{{ info.short_description }}</td>
+                  <td style="vertical-align: middle">{{ info.title }}</td>
+                  <td style="vertical-align: middle">{{ info.sub_title }}</td>
+                  <td style="vertical-align: middle">{{ info.short_description }}</td>
                   <!-- <td>
                     <span
                       class="badge"
@@ -49,12 +49,12 @@
                       >{{ info.status }}</span
                     >
                   </td> -->
-                  <td>
+                  <td style="vertical-align: middle">
                     <span class="badge" :class="statusColor(info.status)">{{
                       info.status
                     }}</span>
                   </td>
-                  <td>
+                  <td style="vertical-align: middle">
                     <div class="dropdown">
                       <a
                         class="btn dropdown-toggle"

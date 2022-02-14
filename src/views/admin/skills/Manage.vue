@@ -26,15 +26,15 @@
               </thead>
               <tbody>
                 <tr v-for="(info, key) in getSkills" :key="key">
-                  <td></td>
-                  <td>{{ info.skill_name }}</td>
-                  <td>{{ info.skill_percentage }}</td>
-                  <td>
+                  <td style="vertical-align: middle">{{ ++key }}</td>
+                  <td style="vertical-align: middle">{{ info.skill_name }}</td>
+                  <td style="vertical-align: middle">{{ info.skill_percentage }}</td>
+                  <td style="vertical-align: middle">
                     <span class="badge" :class="statusColor(info.status)">{{
                       info.status
                     }}</span>
                   </td>
-                  <td>
+                  <td style="vertical-align: middle">
                     <div class="dropdown">
                       <a
                         class="btn dropdown-toggle"

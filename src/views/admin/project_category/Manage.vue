@@ -1,16 +1,16 @@
 <template>
   <div>
-    <breadcrumb title="Skills" />
+    <breadcrumb title="Project Categories" />
     <section class="content">
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">All FAQS</h3>
+            <h3 class="card-title">All Project Categories</h3>
             <router-link
-              :to="{ name: 'faq-create' }"
+              :to="{ name: 'project-category-create' }"
               class="btn btn-primary btn-sm"
               style="float: right"
-              >Create FAQ</router-link
+              >Create Service</router-link
             >
           </div>
           <div class="card-body">
@@ -18,17 +18,15 @@
               <thead>
                 <tr>
                   <th>SL</th>
-                  <th>Question</th>
-                  <th>Answer</th>
+                  <th>Category Name</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(info, key) in getFaqs" :key="key">
+                <tr v-for="(info, key) in getCategories" :key="key">
                   <td style="vertical-align: middle">{{ ++key }}</td>
-                  <td style="vertical-align: middle">{{ info.question }}</td>
-                  <td style="vertical-align: middle">{{ info.answer }}</td>
+                  <td style="vertical-align: middle">{{ info.name }}</td>
                   <td style="vertical-align: middle">
                     <span class="badge" :class="statusColor(info.status)">{{
                       info.status
@@ -56,7 +54,7 @@
                         <li>
                           <router-link
                             :to="{
-                              name: 'faq-edit',
+                              name: 'project-category-edit',
                               params: { id: info.id },
                             }"
                             class="dropdown-item"
@@ -76,7 +74,7 @@
                           <a
                             class="dropdown-item bg-danger"
                             style="cursor: pointer"
-                            @click="removeFaq(info.id)"
+                            @click="removeCategory(info.id)"
                             >Delete</a
                           >
                         </li>
@@ -107,16 +105,17 @@ export default {
         Inactive: "bg-danger",
         Active: "bg-success",
       },
+      members: [],
     };
   },
 
-  mounted() {
-    this.$store.dispatch("getFaqs");
+  created() {
+    this.$store.dispatch("getCategories");
   },
 
   computed: {
-    getFaqs() {
-      return this.$store.getters.FAQS;
+    getCategories() {
+      return this.$store.getters.CATEGORIES;
     },
   },
 
@@ -136,14 +135,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("http://127.0.0.1:8000/api/faq/status-change/" + id)
+            .post("http://127.0.0.1:8000/api/category/status-change/" + id)
             .then(() => {
               // Toast.fire({
               //   icon: "success",
               //   title: "Category Deleted Successfully",
               // });
               Swal.fire("Updated!", "Status Update Successfully", "success");
-              this.$store.dispatch("getFaqs");
+              this.$store.dispatch("getCategories");
             })
             .catch((error) => {
               console.log(error);
@@ -151,7 +150,7 @@ export default {
         }
       });
     },
-    removeFaq(id) {
+    removeCategory(id) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -163,14 +162,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("http://127.0.0.1:8000/api/faq/delete/" + id)
+            .post("http://127.0.0.1:8000/api/category/delete/" + id)
             .then(() => {
               // Toast.fire({
               //   icon: "success",
               //   title: "Category Deleted Successfully",
               // });
-              Swal.fire("Deleted!", "Faq Deleted Successfully", "success");
-              this.$store.dispatch("getFaqs");
+              Swal.fire("Deleted!", "Category Deleted Successfully", "success");
+              this.$store.dispatch("getCategories");
             })
             .catch((error) => {
               console.log(error);
