@@ -1,40 +1,33 @@
 <template>
   <div>
-    <breadcrumb title="Projects" />
+    <breadcrumb title="Blogs" />
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
             <div class="card card-dark">
               <div class="card-header">
-                <h3 class="card-title">Project Create Form</h3>
+                <h3 class="card-title">Blog Create Form</h3>
                 <router-link
-                  :to="{ name: 'projects' }"
+                  :to="{ name: 'blogs' }"
                   class="btn btn-primary btn-sm text-light"
                   style="float: right"
                   >Back</router-link
                 >
               </div>
-              <form @submit.prevent="addProject()">
+              <form @submit.prevent="addBlog()">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                       <!-- select -->
                       <div class="form-group">
                         <label>Category</label>
-                        <!-- <select class="form-control" v-model="form.category_id">
-                          
+                        <select
+                          class="form-control"
+                          v-model="form.blog_category_id"
+                        >
                           <option
-                            value="1"
-                            v-for="(info, key) in getProjectCategories"
-                            :key="key"
-                          >
-                            {{ info.name }}
-                          </option>
-                        </select> -->
-                        <select class="form-control" v-model="form.category_id">
-                          <option
-                            v-for="(info, key) in ProjectsCategories"
+                            v-for="(info, key) in BlogCategories"
                             v-bind:value="info.id"
                             :key="key"
                           >
@@ -43,14 +36,14 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                       <div class="form-group">
                         <label for="title">Title</label>
                         <input
                           type="text"
-                          v-model="form.project_title"
+                          v-model="form.title"
                           class="form-control"
-                          placeholder="Enter Project Title"
+                          placeholder="Enter Blog Title"
                         />
                       </div>
                     </div>
@@ -65,46 +58,15 @@
                         ></textarea>
                       </div>
                     </div>
-                    <div class="col-sm-3">
-                      <label>Start Date</label>
-                      <div class="form-group">
-                        <input
-                          type="date"
-                          class="form-control"
-                          v-model="form.start_date"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-3">
-                      <label>End Date</label>
-                      <div class="form-group">
-                        <input
-                          type="date"
-                          class="form-control"
-                          v-model="form.end_date"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label for="title">Website URL</label>
-                        <input
-                          type="text"
-                          v-model="form.website_url"
-                          class="form-control"
-                          placeholder="Enter URL"
-                        />
-                      </div>
-                    </div>
 
                     <div class="col-sm-3">
-                      <label>Project Thumbnail</label>
+                      <label>Blog Thumbnail</label>
                       <div
                         class="image-input"
                         :style="{ backgroundImage: `url(${thumbnail})` }"
                         @click="chooseImage"
                       >
-                        <span v-if="!form.project_thumbnail" class="placeholder"
+                        <span v-if="!form.blog_thumbnail" class="placeholder"
                           >Choose an Image</span
                         >
                         <input
@@ -115,19 +77,6 @@
                         />
                       </div>
                     </div>
-                    <!-- <div class="col-sm-3">
-                      <div class="form-group">
-                        <label>Project Image</label>
-                        <div class="custom-file">
-                          <input
-                            type="file" class="custom-file-input" id="customFile" v-model="form.project_image"
-                          />
-                          <label class="custom-file-label" for="customFile"
-                            >Choose file</label
-                          >
-                        </div>
-                      </div>
-                    </div> -->
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -155,54 +104,47 @@ export default {
 
   data() {
     return {
-      
       form: {
-        project_title: null,
+        blog_category_id: [],
+        created_by: null,
+        title: null,
         description: null,
-        start_date: null,
-        end_date: null,
-        website_url: null,
-        category_id: [],
       },
       thumbnail: null,
     };
   },
 
   created() {
-    this.$store.dispatch("getProjectsCategories");
+    this.$store.dispatch("getActiveBlogsCategories");
   },
 
   computed: {
-    ProjectsCategories() {
-      return this.$store.getters.PROJECTSCATEGOROES;
+    BlogCategories() {
+      return this.$store.getters.BLOGSCATEGOROES;
     },
   },
 
   methods: {
-    addProject() {
+    addBlog() {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + this.$store.state.token;
       var formData = new FormData();
-      formData.append("category_id", this.form.category_id);
-      formData.append("project_title", this.form.project_title);
-      formData.append("description", this.form.description);
-      formData.append("start_date", this.form.start_date);
-      formData.append("end_date", this.form.end_date);
-      formData.append("website_url", this.form.website_url);
 
-      formData.append("project_thumbnail", this.form.project_thumbnail);
-      // formData.append("project_image", this.form.project_image);
+      formData.append("blog_category_id", this.form.blog_category_id);
+      formData.append("created_by", this.form.created_by);
+      formData.append("title", this.form.title);
+      formData.append("description", this.form.description);
+      formData.append("blog_thumbnail", this.form.blog_thumbnail);
 
       let instance = this;
       axios
-        .post("http://127.0.0.1:8000/api/project/create", formData)
-        .then(function (response) {
-          console.log(response);
+        .post("http://127.0.0.1:8000/api/blog/create", formData)
+        .then(function () {
           Swal.fire({
             icon: "success",
-            title: "Project Created Successfully",
+            title: "Blog Created Successfully",
           });
-          instance.$router.push("/admin/projects");
+          instance.$router.push("/admin/blogs");
         })
         .catch(function (error) {
           console.log(error);
@@ -217,7 +159,7 @@ export default {
       const input = event.target;
       console.log(event);
       const files = input.files;
-      this.form.project_thumbnail = files[0];
+      this.form.blog_thumbnail = files[0];
       if (files && files[0]) {
         const reader = new FileReader();
         reader.onload = (e) => {

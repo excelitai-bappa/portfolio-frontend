@@ -97,7 +97,7 @@
 
               <li class="nav-item">
                 <router-link :to="{ name: 'sliders' }" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
+                  <i class="nav-icon far fa-image"></i>
                   <p>
                     Sliders
                     <i class="right fas fa-angle-left"></i>
@@ -106,7 +106,7 @@
               </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'services' }" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
+                  <i class="nav-icon fa fa-briefcase"></i>
                   <p>
                     Services
                     <i class="right fas fa-angle-left"></i>
@@ -115,7 +115,7 @@
               </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'about-us' }" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
+                  <i class="nav-icon fa fa-edit"></i>
                   <p>
                     About Us
                     <i class="right fas fa-angle-left"></i>
@@ -124,7 +124,8 @@
               </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'skills' }" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
+                  <!-- <i class="nav-icon fas fa-th"></i> -->
+                  <i class="nav-icon fas fa-chart-line"></i>
                   <p>
                     Skills
                     <i class="right fas fa-angle-left"></i>
@@ -133,7 +134,7 @@
               </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'faqs' }" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
+                  <i class="nav-icon far fa-plus-square"></i>
                   <p>
                     FAQS
                     <i class="right fas fa-angle-left"></i>
@@ -142,7 +143,8 @@
               </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'teams' }" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
+                  <!-- <i class="nav-icon fa fa-users"></i> -->
+                  <i class="nav-icon fa fa-users"></i>
                   <p>
                     Teams
                     <i class="right fas fa-angle-left"></i>
@@ -154,25 +156,25 @@
                   :to="{ name: 'project_categories' }"
                   class="nav-link"
                 >
-                  <i class="nav-icon fas fa-home"></i>
+                  <i class="nav-icon fas fa-tag"></i>
                   <p>
                     Project Category
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </router-link>
               </li>
-              <!-- <li class="nav-item">
-                <router-link :to="{ name: 'porjects' }" class="nav-link">
+              <li class="nav-item">
+                <router-link :to="{ name: 'projects' }" class="nav-link">
                   <i class="nav-icon fas fa-home"></i>
                   <p>
                     Projects
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </router-link>
-              </li> -->
+              </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'testimonials' }" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
+                  <i class="nav-icon fas fa-clipboard-check"></i>
                   <p>
                     Testimonials
                     <i class="right fas fa-angle-left"></i>
@@ -184,6 +186,33 @@
                   <i class="nav-icon fas fa-home"></i>
                   <p>
                     Blog Categories
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'blogs' }" class="nav-link">
+                  <i class="nav-icon fas fa-landmark"></i>
+                  <p>
+                    Blogs
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'contacts' }" class="nav-link">
+                  <i class="nav-icon far fa-envelope"></i>
+                  <p>
+                    Contacts
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'settings' }" class="nav-link">
+                  <i class="nav-icon far fas fa-cog"></i>
+                  <p>
+                    Setting
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </router-link>
@@ -229,14 +258,24 @@
 </template>
 
 <script>
-// import axios from 'axios'
+// import axios from "axios";
 
 export default {
   name: "Index",
   loggedIn() {
     return this.$store.$getters.loggedIn;
   },
-  computed: {},
+
+mounted() {
+    this.$store.dispatch("getUserProfileInfo");
+  },
+
+  computed: {
+    getUserProfileInfo() {
+      return this.$store.getters.PROFILE;
+    },
+  },
+
   methods: {
     logout() {
       this.$store.dispatch("logout").then(() => {

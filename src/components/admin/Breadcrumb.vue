@@ -5,7 +5,7 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-sm-6" style="padding-left:0px">
               <h4 class="m-0">{{title}}</h4>
             </div><!-- /.col -->
             <div class="col-sm-6">

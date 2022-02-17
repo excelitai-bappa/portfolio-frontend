@@ -1,16 +1,16 @@
 <template>
   <div>
-    <breadcrumb title="Projects" />
+    <breadcrumb title="Blogs" />
     <section class="content">
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">All Projects</h3>
+            <h3 class="card-title">All Blogs</h3>
             <router-link
-              :to="{ name: 'project-create' }"
+              :to="{ name: 'blog-create' }"
               class="btn btn-primary btn-sm"
               style="float: right"
-              >Create Project</router-link
+              >Create Blog</router-link
             >
           </div>
           <div class="card-body">
@@ -21,39 +21,33 @@
                   <th>Thumbnail</th>
                   <th>Category</th>
                   <th>Title</th>
-                  <th>Image</th>
+                  <th>Slug</th>
                   <th>Description</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Website URL</th>
+                  <th>Created By</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(info, key) in getProjects" :key="key">
+                <tr v-for="(info, key) in getBlogs" :key="key">
                   <td style="vertical-align: middle">{{ ++key }}</td>
                   <td style="vertical-align: middle">
                     <img
-                      :src="info.project_thumbnail"
+                      :src="info.blog_thumbnail"
                       alt=""
                       style="height: 60px; width: 60px"
                     />
                   </td>
 
-                  <td style="vertical-align: middle">{{ info.category_id }}</td>
                   <td style="vertical-align: middle">
-                    {{ info.project_title }}
+                    {{ info.blog_category_id }}
                   </td>
                   <td style="vertical-align: middle">
-                    {{ info.project_image }}
+                    {{ info.title }}
                   </td>
+                  <td style="vertical-align: middle">{{ info.slug }}</td>
                   <td style="vertical-align: middle">{{ info.description }}</td>
-                  <td style="vertical-align: middle">{{ info.start_date }}</td>
-                  <td style="vertical-align: middle">
-                    {{ info.end_date }}
-                  </td>
-                  <td style="vertical-align: middle">{{ info.website_url }}</td>
+                  <td style="vertical-align: middle">{{ info.created_by }}</td>
                   <td style="vertical-align: middle">
                     <span class="badge" :class="statusColor(info.status)">{{
                       info.status
@@ -81,7 +75,7 @@
                         <li>
                           <router-link
                             :to="{
-                              name: 'project-edit',
+                              name: 'blog-edit',
                               params: { id: info.id },
                             }"
                             class="dropdown-item"
@@ -101,7 +95,7 @@
                           <a
                             class="dropdown-item bg-danger"
                             style="cursor: pointer"
-                            @click="removeProject(info.id)"
+                            @click="removeBlog(info.id)"
                             >Delete</a
                           >
                         </li>
@@ -136,12 +130,12 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("getProjects");
+    this.$store.dispatch("getAllBlogs");
   },
 
   computed: {
-    getProjects() {
-      return this.$store.getters.PROJECTS;
+    getBlogs() {
+      return this.$store.getters.BLOGS;
     },
   },
 
@@ -161,14 +155,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("http://127.0.0.1:8000/api/project/status-change/" + id)
+            .post("http://127.0.0.1:8000/api/blog/status-change/" + id)
             .then(() => {
               // Toast.fire({
               //   icon: "success",
               //   title: "Category Deleted Successfully",
               // });
               Swal.fire("Updated!", "Status Update Successfully", "success");
-              this.$store.dispatch("getProjects");
+              this.$store.dispatch("getAllBlogs");
             })
             .catch((error) => {
               console.log(error);
@@ -177,7 +171,7 @@ export default {
       });
     },
 
-    removeProject(id) {
+    removeBlog(id) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -189,15 +183,15 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("http://127.0.0.1:8000/api/project/delete/" + id)
+            .post("http://127.0.0.1:8000/api/blog/delete/" + id)
             .then(() => {
               // Toast.fire({
               //   icon: "success",
               //   title: "Category Deleted Successfully",
               // });
 
-              Swal.fire("Deleted!", "Project Deleted Successfully", "success");
-              this.$store.dispatch("getProjects");
+              Swal.fire("Deleted!", "Blog Deleted Successfully", "success");
+              this.$store.dispatch("getAllBlogs");
             })
             .catch((error) => {
               console.log(error);

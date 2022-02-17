@@ -168,7 +168,7 @@ export default {
       formData.append("service_provide", this.form.service_provide);
       formData.append("happy_customers", this.form.happy_customers);
 
-      let instance = this;
+      // let instance = this;
       axios
         .post(
           `http://127.0.0.1:8000/api/about-us/update/${this.form.id}`,
@@ -179,7 +179,6 @@ export default {
             icon: "success",
             title: "About-us Updated Successfully",
           });
-          instance.$router.push("/admin/about-us");
         })
         .catch(function (error) {
           console.log(error);

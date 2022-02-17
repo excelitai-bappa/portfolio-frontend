@@ -199,6 +199,32 @@ const routes = [
         },
       },
       {
+        path: '/admin/projects',
+        name: 'projects',
+        component: () => import('../views/admin/projects/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/project/create',
+        name: 'project-create',
+        component: () => import('../views/admin/projects/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/project-edit/:id',
+        name: 'project-edit',
+        component: () => import('../views/admin/projects/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: '/admin/testimonials',
         name: 'testimonials',
         component: () => import('../views/admin/testimonials/Manage'),
@@ -250,6 +276,51 @@ const routes = [
           requiresAuth: true,
         },
       },
+      {
+        path: '/admin/blogs',
+        name: 'blogs',
+        component: () => import('../views/admin/blogs/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/blog/create',
+        name: 'blog-create',
+        component: () => import('../views/admin/blogs/Create'),
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/blog-edit/:id',
+        name: 'blog-edit',
+        component: () => import('../views/admin/blogs/Edit'),
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/contacts',
+        name: 'contacts',
+        component: () => import('../views/admin/contacts/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: '/admin/settings',
+        name: 'settings',
+        component: () => import('../views/admin/settings/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      
     ],
   },
   {
