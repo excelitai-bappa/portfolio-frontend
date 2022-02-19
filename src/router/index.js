@@ -320,6 +320,15 @@ const routes = [
           requiresAuth: true,
         },
       },
+      {
+        path: '/admin/profile/update',
+        name: 'admin-profile-update',
+        component: () => import('../views/admin/admin_update/Manage'),
+
+        meta: {
+          requiresAuth: true,
+        },
+      },
       
     ],
   },
