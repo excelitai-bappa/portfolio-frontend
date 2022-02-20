@@ -48,14 +48,21 @@
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
               <img
+                v-if="data.profile_picture"
                 :src="data.profile_picture"
                 class="img-circle elevation-2"
                 alt="User Image"
-                style="height: 40px; width:40px"
+                style="height: 40px; width: 40px"
+              />
+              <img
+                v-else
+                src="https://spng.pngfind.com/pngs/s/5-52097_avatar-png-pic-vector-avatar-icon-png-transparent.png"
+                class="img-circle elevation-2"
+                alt="User Image"
+                style="height: 40px; width: 40px"
               />
             </div>
             <div class="info">
-             
               <router-link
                 :to="{ name: 'admin-profile-update' }"
                 class="d-block"
@@ -287,24 +294,27 @@ export default {
       return this.$store.getters.PROFILE;
     },
   },
-  // life cycle hook - calls axios
+  
   created() {
-    axios.defaults.headers.common["Authorization"] =
-      "Bearer " + localStorage.getItem("accessToken");
-
-    axios
-      .get("http://127.0.0.1:8000/api/user/profile")
-      .then((response) => {
-        this.data.name = response.data.data.name;
-        this.data.email = response.data.data.email;
-        this.data.profile_picture = response.data.data.profile_picture;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getUserInformation()
   },
 
   methods: {
+    async getUserInformation() {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + this.$store.state.token;
+      await axios
+        .get("http://127.0.0.1:8000/api/user/profile")
+        .then((response) => {
+          this.data.name = response.data.data.name;
+          this.data.email = response.data.data.email;
+          this.data.profile_picture = response.data.data.profile_picture;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
     logout() {
       this.$store.dispatch("logout").then(() => {
         this.$router.push({

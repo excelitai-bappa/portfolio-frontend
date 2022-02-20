@@ -150,7 +150,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("http://127.0.0.1:8000/api/sliders/status-change/" + id)
+            .post("http://127.0.0.1:8000/api/slider/status-change/" + id)
             .then(() => {
               // Toast.fire({
               //   icon: "success",

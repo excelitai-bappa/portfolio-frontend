@@ -7,7 +7,6 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('accessToken') || null,
-    user_information: [],
     sliders: [],
     services: [],
     skills: [],
@@ -27,9 +26,6 @@ const store = new Vuex.Store({
   getters: {
     loggedIn(state) {
       return state.token !== null
-    },
-    PROFILE: (state) => {
-      return state.user_information
     },
     SLIDERS: (state) => {
       return state.sliders
@@ -82,9 +78,6 @@ const store = new Vuex.Store({
     removeToken(state) {
       state.token = null
     },
-    user_information(state, user_information) {
-      state.user_information = user_information
-    },
     sliders(state, sliders) {
       state.sliders = sliders
     },
@@ -132,37 +125,6 @@ const store = new Vuex.Store({
   actions: {
     removeToken(context) {
       context.commit('removeToken')
-    },
-    // loggedInInformation: async (context) => {
-    //   axios.defaults.headers.common['Authorization'] =
-    //     'Bearer ' + localStorage.getItem('accessToken')
-    //   await axios
-    //     .get('http://127.0.0.1:8000/api/user/profile')
-    //     .then((response) => {
-    //       console.log(response)
-    //       context.commit('logged_in_information', response.data.data)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // },
-
-    getUserProfileInfo: async (context) => {
-      axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('accessToken')
-      await axios
-        .get('http://127.0.0.1:8000/api/user/profile')
-        .then((response) => {
-          // console.log(response.data.data.id)
-          // this.adminName = response.data.data.name
-          // this.adminEmail = response.data.data.email
-          // console.log(response.data.data.name)
-          // console.log(response.data.data.email)
-          context.commit('user_information', response.data.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     },
 
     getSliders: async (context) => {

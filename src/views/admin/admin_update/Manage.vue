@@ -57,9 +57,12 @@
                           />
                         </div>
                       </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label"
+                          >Profile Picture</label
+                        >
+                        <div class="col-sm-10">
+                        <div
                         v-if="thumbnail"
                         class="image-input"
                         :style="`background-image: url(${thumbnail})`"
@@ -86,14 +89,19 @@
                           @input="onSelectFile"
                         />
                       </div>
-                      <div class="bg-primary" style="padding: 10px 0px">
-                        <h5
+                      <div class="bg-primary" style="padding: 10px 0px; width:200px">
+                        <h6
                           class="text-white text-center"
                           style="margin-bottom: 0px; vertical-allign: middle"
                         >
                           PROFILE PICTURE
-                        </h5>
+                        </h6>
                       </div>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      
                     </div>
                   </div>
                 </div>
@@ -199,7 +207,7 @@ export default {
 <style scoped>
 .image-input {
   display: block;
-  width: 100%;
+  width: 200px;
   height: 200px;
   background-size: cover;
   background-position: center center;
